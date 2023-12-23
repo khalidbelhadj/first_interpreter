@@ -1,0 +1,47 @@
+---------- Program -----------
+The base program of any file
+
+program -> [item]
+item -> declaration
+        | assignment
+        | expression
+
+---------- Declarations -----------
+Binding idents to expressions
+
+declaration -> var | const | proc
+assignment -> identifier "=" expression
+var -> "var" identifier "=" expression
+const -> "const" identifier "=" expression
+proc -> "proc" identifier "(" proc_args? ")" block
+
+---------- Statements -----------
+Perform side effects but do not bind idents and values
+
+statement -> block | expression // this is not implemented in code
+block -> "{" [item] "}"
+
+---------- Expressions -----------
+They evaluate to a value in the end, and do not perform any side effects
+
+expression -> unary [binary_operator unary]
+unary -> call | unary_operator unary
+call -> primary | identifier "(" call_args ")"
+primary ->
+    true
+    | false
+    | nil
+    | number_literal
+    | string_literal
+    | identifier
+    | "return" expression
+    | "(" expression ")"
+
+---------- Helpers -----------
+string_literal -> '"' [char] '"'
+number_literal -> [numeric] ( "." [numeric])?
+proc_args -> "(" identifier ("," proc_args)? ")" // TODO: add types here
+call_args -> "(" expression ("," call_args)? ")"
+identifier -> alpha[alpha_numeric]
+unary_operator -> "!"
+binary_operator -> "+" | "-"

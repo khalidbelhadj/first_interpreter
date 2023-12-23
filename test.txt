@@ -1,0 +1,7 @@
+
+const y = 2
+
+proc main() {
+    var x = 2 + 2 + 3
+    println(x)
+}
